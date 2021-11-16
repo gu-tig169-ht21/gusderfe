@@ -4,12 +4,19 @@ import 'ToDoListState.dart';
 
 void main() {
   runApp(MyApp());
+  /*   MaterialApp(
+      debugShowCheckedModeBanner: false,
+      //tar bort Debug-flärpen
+      title: 'To-Do list',
+      home: MainView(), */
 }
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      //tar bort Debug-flärpen
       home: MainView(),
       theme: ThemeData(
         primarySwatch: Colors.blue,
@@ -23,15 +30,27 @@ class MainView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.blue,
-        title: Text('Tig169 To-Do'),
-        centerTitle: true,
+        title: const Text('To-Do List App'),
         actions: [
-          IconButton(
+          /*       IconButton(
             icon: Icon(Icons.arrow_drop_down_circle),
             onPressed: () {},
-          ),
+          ), */
+          PopupMenuButton(
+              itemBuilder: (context) => [
+                    PopupMenuItem(
+                      child: Text("All"),
+                      value: 1,
+                    ),
+                    PopupMenuItem(
+                      child: Text("Done"),
+                      value: 2,
+                    ),
+                    PopupMenuItem(
+                      child: Text("Undone"),
+                      value: 3,
+                    )
+                  ])
         ],
       ),
       body: _list(),
@@ -45,6 +64,86 @@ class MainView extends StatelessWidget {
     );
   }
 
+  Widget _list() {
+    var assignment = [
+      "Handla mat",
+      "Klappa katterna",
+      "Hinna till Systemet",
+      "Ordna vattenlåset",
+      "SMSa farmor",
+    ];
+    return ListView.builder(
+        itemCount: assignment.length,
+        itemBuilder: (context, index) {
+          return Column(
+            children: [
+              _listItems(assignment[index]),
+              Divider(
+                thickness: 2,
+              ),
+            ],
+          );
+        });
+  }
+
+  Widget _listItems(assignmentTitle) {
+    return ListTile(
+      leading: MyCB(),
+      title: Text(
+        assignmentTitle,
+        style: TextStyle(
+          fontSize: 20,
+        ),
+      ),
+      trailing: IconButton(
+        icon: Icon(Icons.delete),
+        onPressed: () {},
+      ),
+    );
+  }
+
+  Widget _checkBoxAlt(String assignment) {
+    return Row(children: [
+      MyCB(),
+      Container(
+        height: 30,
+        width: 250,
+        child: Text(
+          assignment,
+          style: const TextStyle(
+            fontSize: 25,
+          ),
+        ),
+      ),
+      IconButton(
+        icon: Icon(Icons.delete),
+        onPressed: () {},
+      )
+    ]);
+  }
+}
+
+class MyCB extends StatefulWidget {
+  @override
+  State<MyCB> createState() => _MyCBState();
+}
+
+class _MyCBState extends State<MyCB> {
+  bool? _myBool = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Checkbox(
+        value: _myBool,
+        onChanged: (value) {
+          setState(() {
+            _myBool = value;
+          });
+        });
+  }
+}
+
+/*
   Widget _list() {
     return ListView(
       children: [
@@ -65,6 +164,7 @@ class MainView extends StatelessWidget {
     );
   }
 }
+*/
 
 //--------------------Second view-----------------------------
 class SecondView extends StatelessWidget {
@@ -84,7 +184,7 @@ class SecondView extends StatelessWidget {
       ),
       body: Column(
         children: [
-          ///Hämtar metoden _inputTask
+          ///Hämtar _inputTask
           _inputTask(),
           _addButton()
 
@@ -115,7 +215,7 @@ class SecondView extends StatelessWidget {
           },
           icon: const Icon(Icons.post_add_outlined),
         ),
-        const Text('Add to list')
+        const Text('Lägg till i lista')
       ],
     );
   }
