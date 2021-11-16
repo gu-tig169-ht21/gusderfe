@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
 import 'ToDoListState.dart';
-//import 'andrafilen.dart';
+//import 'thirdview.dart';
 
 void main() {
+  //  var state = ToDoListState();
   runApp(MyApp());
-  /*   MaterialApp(
-      debugShowCheckedModeBanner: false,
-      //tar bort Debug-flärpen
-      title: 'To-Do list',
-      home: MainView(), */
 }
 
 class MyApp extends StatelessWidget {
@@ -32,10 +28,6 @@ class MainView extends StatelessWidget {
       appBar: AppBar(
         title: const Text('To-Do List App'),
         actions: [
-          /*       IconButton(
-            icon: Icon(Icons.arrow_drop_down_circle),
-            onPressed: () {},
-          ), */
           PopupMenuButton(
               itemBuilder: (context) => [
                     PopupMenuItem(
@@ -59,7 +51,7 @@ class MainView extends StatelessWidget {
           Navigator.push(
               context, MaterialPageRoute(builder: (context) => SecondView()));
         },
-        child: const Icon(Icons.add, color: Colors.white, size: 30),
+        child: const Icon(Icons.add),
       ),
     );
   }
@@ -92,7 +84,7 @@ class MainView extends StatelessWidget {
       title: Text(
         assignmentTitle,
         style: TextStyle(
-          fontSize: 20,
+          fontSize: 15,
         ),
       ),
       trailing: IconButton(
@@ -106,29 +98,30 @@ class MainView extends StatelessWidget {
     return Row(children: [
       MyCB(),
       Container(
-        height: 30,
-        width: 250,
         child: Text(
           assignment,
           style: const TextStyle(
-            fontSize: 25,
+            fontSize: 15,
           ),
         ),
       ),
       IconButton(
+        //ta bort något från listan-knappen
         icon: Icon(Icons.delete),
         onPressed: () {},
+        //             setState(() {
+        //           _toDoInputs.remove(text);
       )
     ]);
   }
 }
 
-class MyCB extends StatefulWidget {
+class ToDoList extends StatefulWidget {
   @override
-  State<MyCB> createState() => _MyCBState();
+  State<ToDoList> createState() => _ToDoListState();
 }
 
-class _MyCBState extends State<MyCB> {
+class _ToDoListState extends State<ToDoList> {
   bool? _myBool = false;
 
   @override
