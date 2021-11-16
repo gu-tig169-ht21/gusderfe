@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'ToDoListState.dart';
+//import 'andrafilen.dart';
 
 void main() {
   runApp(MyApp());
@@ -24,9 +26,10 @@ class MainView extends StatelessWidget {
         backgroundColor: Colors.white,
         foregroundColor: Colors.blue,
         title: Text('Tig169 To-Do'),
+        centerTitle: true,
         actions: [
           IconButton(
-            icon: Icon(Icons.arrow_right),
+            icon: Icon(Icons.arrow_drop_down_circle),
             onPressed: () {},
           ),
         ],
@@ -63,38 +66,61 @@ class MainView extends StatelessWidget {
   }
 }
 
+//--------------------Second view-----------------------------
 class SecondView extends StatelessWidget {
+  get inputText => TextEditingController();
+
+  get Provider => null;
+
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
         foregroundColor: Colors.blue,
+        //lägger till de fina färgerna
+
         title: Text('Lägg till nya påminnelser'),
+        centerTitle: true, //Texten i mitten
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(height: 20),
-            _nameInputField(),
-            Container(height: 20),
-            _addText(),
-          ],
-        ),
+      body: Column(
+        children: [
+          ///Hämtar metoden _inputTask
+          _inputTask(),
+          _addButton()
+
+          ///Tillropar addButton
+        ],
       ),
     );
   }
 
-  Widget _nameInputField() {
+  Widget _inputTask() {
     return Container(
       margin: EdgeInsets.only(left: 16, right: 16),
       child: TextField(
+        controller: inputText,
         decoration: InputDecoration(hintText: "Skriv in här"),
       ),
     );
   }
 
+  Widget _addButton() {
+    return Row(
+      children: [
+        IconButton(
+          onPressed: () {
+            var newTask = inputText.text;
+            Provider.of<TodoListState>(listen: false).addListItem(newTask);
+            inputText.clear();
+          },
+          icon: const Icon(Icons.post_add_outlined),
+        ),
+        const Text('Add to list')
+      ],
+    );
+  }
+}
+/*
   Widget _addText() {
     return Row(
       children: [
@@ -103,10 +129,11 @@ class SecondView extends StatelessWidget {
           child: Icon(Icons.add),
         ),
         Container(
-          margin: EdgeInsets.only(left: 5),
+          margin: EdgeInsets.only(left: 180),
           child: Text("Add"),
         )
       ],
     );
   }
-}
+}*/
+
