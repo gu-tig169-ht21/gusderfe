@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'todo_list_state.dart';
 
 class SecondView extends StatefulWidget {
-  final task;
+  final ToDoItem task;
 
   const SecondView(this.task);
 
