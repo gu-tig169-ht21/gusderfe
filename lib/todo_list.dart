@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'todo_list_state.dart';
+import 'todo_list_view.dart';
 
 class ToDoList extends StatelessWidget {
-  final List<ToDoItem> list;
+  List<ToDoItem> list;
 
-  const ToDoList(this.list);
+  ToDoList(this.list);
 
   @override
   Widget build(BuildContext context) {
@@ -21,11 +22,13 @@ class ToDoList extends StatelessWidget {
           task.isDone = value;
         },
       ),
-      title: Text(task.toDoText),
+      title: Text(task.toDoText,
+          style: TextStyle(
+              decoration: task.isDone ? TextDecoration.lineThrough : null)),
       trailing: const Icon(Icons.highlight_remove),
       onTap: () {
-        var state =
-            Provider.of<MyState>(context, listen: false).setTaskChecked(task);
+        var state = Provider.of<MyState>(context, listen: false);
+        state.removeTask(task);
       },
     );
   }

@@ -28,11 +28,11 @@ class MyState extends ChangeNotifier {
   }
 
   void setTaskChecked(task) {
-    task.ifDone(task);
+    task.isDone(task);
     notifyListeners();
   }
 
-//sätter variabel tar in ett argument i form av int
+//sätter variabel och tar in ett argument i form av int
   void setFilterBy(int filterBy) {
     _filterBy = filterBy;
     notifyListeners();

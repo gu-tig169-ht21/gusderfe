@@ -17,20 +17,20 @@ class TodolistView extends StatelessWidget {
         actions: [
           PopupMenuButton<int>(
               icon: const Icon(Icons.more_horiz_outlined),
-              onSelected: (value) {
+              onSelected: (int value) {
                 Provider.of<MyState>(context, listen: false).setFilterBy(value);
               },
               itemBuilder: (context) => [
                     const PopupMenuItem(
-                      child: Text("All"),
+                      child: Text("Alla"),
                       value: 1,
                     ),
                     const PopupMenuItem(
-                      child: Text("Done"),
+                      child: Text("Klara"),
                       value: 2,
                     ),
                     const PopupMenuItem(
-                      child: Text("Undone"),
+                      child: Text("Ogjorda"),
                       value: 3,
                     )
                     //detta är för filtrering
@@ -47,7 +47,7 @@ class TodolistView extends StatelessWidget {
               context,
               MaterialPageRoute(
                   builder: (context) =>
-                      SecondView(ToDoItem(toDoText: 'Something to do'))));
+                      SecondView(ToDoItem(toDoText: 'Något att göra'))));
           // Kommer till Andra vyn
 
           if (newToDo != null) {
