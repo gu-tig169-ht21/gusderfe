@@ -2,17 +2,21 @@ import 'package:flutter/material.dart';
 import './api.dart';
 
 class ToDoItem {
-  String? toDoText;
   String? id;
-  bool isChanged;
+  String? toDoText;
+  bool isDone;
 
-  ToDoItem({this.id, this.toDoText, this.isChanged = false});
+  ToDoItem({this.id, this.toDoText, this.isDone = false});
+
+  void toggleDone(ToDoItem task) {
+    isDone = !isDone;
+  }
 
   static Map<String, dynamic> toJson(ToDoItem task) {
     return {
       'title': task.toDoText,
       'id': task.id,
-      'done': task.isChanged,
+      'done': task.isDone,
     };
   }
 
@@ -20,7 +24,7 @@ class ToDoItem {
     return ToDoItem(
       id: json['id'],
       toDoText: json['title'],
-      isChanged: json['done'],
+      isDone: json['done'],
     );
   }
 }
@@ -53,7 +57,7 @@ class MyState extends ChangeNotifier {
   }
 
 //vid ändring av checkbox
-  void setTaskChecked(ToDoItem task) async {
+  void isDone(ToDoItem task) async {
     _list = await Api.changeTask(task.id.toString());
     notifyListeners();
   }

@@ -7,9 +7,10 @@ const API_KEY =
 const API_URL =
     'https://todoapp-api-pyq5q.ondigitalocean.app'; //En variabel för hela URL:n
 
-class Api {
 //lägger till en todo
+class Api {
   static Future<List<ToDoItem>> addTask(ToDoItem task) async {
+    Map<String, dynamic> json = ToDoItem.toJson(task);
     var bodyString = jsonEncode({
       'title': task.toDoText,
     });
@@ -26,6 +27,7 @@ class Api {
     }).toList();
   }
 
+//tar bort en todo
   static Future deleteTask(String taskId) async {
     var response = await http
         .delete(Uri.parse('$API_URL/todos/$taskId?key=$API_KEY&_confirm=true'));
