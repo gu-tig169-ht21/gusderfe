@@ -6,7 +6,6 @@ class ToDoItem {
   String? id;
   bool isChanged;
 
-  //ToDoItem({this.toDoText});
   ToDoItem({this.id, this.toDoText, this.isChanged = false});
 
   static Map<String, dynamic> toJson(ToDoItem task) {
@@ -27,11 +26,11 @@ class ToDoItem {
 }
 
 class MyState extends ChangeNotifier {
-  List<ToDoItem> _list = [];
+  late List<ToDoItem> _list = [];
   int _filterBy = 1;
   int get filterBy => _filterBy;
 
-  List<ToDoItem> get list => _filterList(_list, _filterBy);
+  List<ToDoItem> get list => _list;
 
   get value => null;
 
@@ -51,36 +50,17 @@ class MyState extends ChangeNotifier {
   void removeTask(ToDoItem task) async {
     _list = await Api.deleteTask(task.id.toString());
     notifyListeners();
+  }
 
-    void changeTask(ToDoItem task) async {
-      _list = await Api.changeTask(task.id.toString());
-      notifyListeners();
-    }
-
-    void setTaskChecked(task) {
-      task.isDone(task);
-      notifyListeners();
-    }
+//vid ändring av checkbox
+  void setTaskChecked(ToDoItem task) async {
+    _list = await Api.changeTask(task.id.toString());
+    notifyListeners();
+  }
 
 //sätter variabel och tar in ett argument i form av int
-    void setFilterBy(int filterBy) {
-      _filterBy = filterBy;
-      notifyListeners();
-    }
-
-//filtrerar efter value
-    List<ToDoItem> _filterList(list, filterBy) {
-      if (filterBy == 1) {
-        return list;
-      }
-      if (filterBy == 2) {
-        return list.where((item) => item.isDone == true).toList();
-      }
-      if (filterBy == 3) {
-        return list.where((item) => item.isDone == false).toList();
-      }
-      return [];
-      notifyListeners();
-    }
+  void setFilterBy(int filterBy) {
+    _filterBy = filterBy;
+    notifyListeners();
   }
 }

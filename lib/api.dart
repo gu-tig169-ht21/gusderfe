@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'todo_list_state.dart';
 
 const API_KEY =
-    'ca3084de-4424-4421-98af-0ae9e2cb3ee5'; //En variabel för hela API-key
+    'b7b957c4-9495-4ea1-ba1e-f8159a495c4b'; //En variabel för hela API-key
 const API_URL =
     'https://todoapp-api-pyq5q.ondigitalocean.app'; //En variabel för hela URL:n
 

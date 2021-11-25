@@ -62,4 +62,18 @@ class TodolistView extends StatelessWidget {
 
 class TodoListState {
   void filterList(Object? value) {}
+
+//filtrerar efter value
+  List<ToDoItem> _filterList(list, filterBy) {
+    if (filterBy == 1) {
+      return list;
+    }
+    if (filterBy == 2) {
+      return list.where((item) => item.isDone == true).toList();
+    }
+    if (filterBy == 3) {
+      return list.where((item) => item.isDone == false).toList();
+    }
+    return list;
+  }
 }
