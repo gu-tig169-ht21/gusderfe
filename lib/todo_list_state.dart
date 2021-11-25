@@ -46,19 +46,19 @@ class MyState extends ChangeNotifier {
 
 //lägger till i listan
   void addTask(task) async {
-    _list = await Api.addTask(task.id);
+    _list = await Api.addTask(task);
     notifyListeners();
   }
 
 //tar bort från listan
   void removeTask(ToDoItem task) async {
-    _list = await Api.deleteTask(task.id.toString());
+    _list = await Api.deleteTask(task);
     notifyListeners();
   }
 
 //vid ändring av checkbox
   void isDone(ToDoItem task) async {
-    _list = await Api.changeTask(task.id.toString());
+    _list = await Api.changeTask(task);
     notifyListeners();
   }
 

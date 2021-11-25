@@ -13,9 +13,10 @@ class Api {
     Map<String, dynamic> json = ToDoItem.toJson(task);
     var bodyString = jsonEncode({
       'title': task.toDoText,
+      'done': task.isDone,
     });
     var response = await http.post(
-      Uri.parse('$API_URL/todos?key=$API_KEY'),
+      Uri.parse('$API_URL/todos/?key=$API_KEY'),
       body: bodyString,
       headers: {'Content-Type': 'application/json'},
     );
@@ -28,9 +29,9 @@ class Api {
   }
 
 //tar bort en todo
-  static Future deleteTask(String taskId) async {
-    var response = await http
-        .delete(Uri.parse('$API_URL/todos/$taskId?key=$API_KEY&_confirm=true'));
+  static Future deleteTask(ToDoItem task) async {
+    var response = await http.delete(
+        Uri.parse('$API_URL/todos/${task.id}?key=$API_KEY&_confirm=true'));
     var bodyString = response.body;
     var list = jsonDecode(bodyString);
 
@@ -39,9 +40,9 @@ class Api {
     }).toList();
   }
 
-  static Future changeTask(String taskId) async {
+  static Future changeTask(ToDoItem task) async {
     var response = await http
-        .put(Uri.parse('$API_URL/todos/$taskId?key=$API_KEY&_confirm=true'));
+        .put(Uri.parse('$API_URL/todos/${task.id}?key=$API_KEY&_confirm=true'));
     var bodyString = response.body;
     var list = jsonDecode(bodyString);
 
