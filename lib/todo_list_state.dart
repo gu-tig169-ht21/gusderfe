@@ -15,6 +15,12 @@ class MyState extends ChangeNotifier {
 
   get value => null;
 
+  Future getList() async {
+    List<ToDoItem> list = await Api.getTodos();
+    _list = list;
+    notifyListeners();
+  }
+
 //lägger till i listan
   void addTask(task) {
     _list.add(task);
