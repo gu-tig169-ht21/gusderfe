@@ -22,8 +22,8 @@ class ToDoItem {
 
   static ToDoItem fromJson(Map<String, dynamic> json) {
     return ToDoItem(
-      id: json['id'],
       toDoText: json['title'],
+      id: json['id'],
       isDone: json['done'],
     );
   }
@@ -32,11 +32,11 @@ class ToDoItem {
 class MyState extends ChangeNotifier {
   late List<ToDoItem> _list = [];
   int _filterBy = 1;
-  int get filterBy => _filterBy;
 
   List<ToDoItem> get list => _list;
+  int get filterBy => _filterBy;
 
-  get value => null;
+  // get value => null;
 
   Future getList() async {
     List<ToDoItem> list = await Api.getTasks();
@@ -51,14 +51,20 @@ class MyState extends ChangeNotifier {
   }
 
 //tar bort från listan
-  void removeTask(ToDoItem task) async {
-    _list = await Api.deleteTask(task);
+  void removeTask(ToDoItem taskId) async {
+    _list = await Api.deleteTask(taskId);
+    notifyListeners();
+  }
+
+  void updateTask(ToDoItem task) async {
+    task.toggleDone(task);
+    _list = await Api.updateTask(task, task);
     notifyListeners();
   }
 
 //vid ändring av checkbox
-  void isDone(ToDoItem task) async {
-    _list = await Api.changeTask(task);
+  void isDone(ToDoItem task) {
+    task.toggleDone(task);
     notifyListeners();
   }
 

@@ -48,7 +48,7 @@ class TodolistView extends StatelessWidget {
               context,
               MaterialPageRoute(
                   builder: (context) =>
-                      SecondView(ToDoItem(toDoText: 'Något att göra'))));
+                      SecondView(ToDoItem(toDoText: 'title'))));
           // Kommer till Andra vyn
 
           if (newToDo != null) {

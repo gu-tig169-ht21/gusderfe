@@ -2,10 +2,10 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'todo_list_state.dart';
 
-const API_KEY =
-    'b7b957c4-9495-4ea1-ba1e-f8159a495c4b'; //En variabel för hela API-key
-const API_URL =
-    'https://todoapp-api-pyq5q.ondigitalocean.app'; //En variabel för hela URL:n
+const API_KEY = 'f5ba4293-e01d-4e5b-a210-3e3c06e948cc';
+//En variabel för hela API-key
+const API_URL = 'https://todoapp-api-pyq5q.ondigitalocean.app';
+//En variabel för hela URL:n
 
 //lägger till en todo
 class Api {
@@ -40,9 +40,9 @@ class Api {
     }).toList();
   }
 
-  static Future changeTask(ToDoItem task) async {
-    var response = await http
-        .put(Uri.parse('$API_URL/todos/${task.id}?key=$API_KEY&_confirm=true'));
+  static Future updateTask(ToDoItem task, ToDoItem taskId) async {
+    var response =
+        await http.put(Uri.parse('$API_URL/todos/${task.id}?key=$API_KEY'));
     var bodyString = response.body;
     var list = jsonDecode(bodyString);
 
@@ -54,7 +54,6 @@ class Api {
   static Future<List<ToDoItem>> getTasks() async {
     var response = await http.get(Uri.parse('$API_URL/todos?key=$API_KEY'));
     String bodyString = response.body;
-    print(bodyString);
     var json = jsonDecode(bodyString);
 
     return json.map<ToDoItem>((data) {

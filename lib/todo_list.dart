@@ -16,20 +16,20 @@ class ToDoList extends StatelessWidget {
 
   Widget _listItem(context, task) {
     return ListTile(
-      leading: Checkbox(
-        value: task.isDone,
-        onChanged: (bool? value) {
-          task.isDone = value;
-        },
-      ),
-      title: Text(task.toDoText,
-          style: TextStyle(
-              decoration: task.isDone ? TextDecoration.lineThrough : null)),
-      trailing: const Icon(Icons.highlight_remove),
-      onTap: () {
-        var state = Provider.of<MyState>(context, listen: false);
-        state.removeTask(task);
-      },
-    );
+        leading: Checkbox(
+          value: task.isDone,
+          onChanged: (bool? value) {
+            task.isDone = value;
+          },
+        ),
+        title: Text(task.toDoText,
+            style: TextStyle(
+                decoration: task.isDone ? TextDecoration.lineThrough : null)),
+        trailing: IconButton(
+            onPressed: () {
+              var state = Provider.of<MyState>(context, listen: false);
+              state.removeTask(task);
+            },
+            icon: Icon(Icons.highlight_remove)));
   }
 }
