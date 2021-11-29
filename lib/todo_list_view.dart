@@ -38,7 +38,8 @@ class TodolistView extends StatelessWidget {
         ],
       ),
       body: Consumer<MyState>(
-        builder: (context, state, child) => ToDoList(state.list),
+        builder: (context, state, child) =>
+            ToDoList(_filterList(state.list, state.filterBy)),
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add, size: 42),
@@ -47,7 +48,7 @@ class TodolistView extends StatelessWidget {
               context,
               MaterialPageRoute(
                   builder: (context) =>
-                      SecondView(ToDoItem(toDoText: 'Något att göra'))));
+                      SecondView(ToDoItem(toDoText: 'title'))));
           // Kommer till Andra vyn
 
           if (newToDo != null) {
@@ -58,8 +59,18 @@ class TodolistView extends StatelessWidget {
       ),
     );
   }
-}
 
-class TodoListState {
-  void filterList(Object? value) {}
+  //filtrerar efter value
+  List<ToDoItem> _filterList(list, filterBy) {
+    if (filterBy == 1) {
+      return list;
+    }
+    if (filterBy == 2) {
+      return list.where((item) => item.isDone == true).toList();
+    }
+    if (filterBy == 3) {
+      return list.where((item) => item.isDone == false).toList();
+    }
+    return list;
+  }
 }

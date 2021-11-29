@@ -5,10 +5,11 @@ import 'todo_list_state.dart';
 
 void main() {
   var state = MyState();
+  state.getList();
   runApp(
     ChangeNotifierProvider(
       create: (context) => state,
-      child: MyApp(),
+      child: const MyApp(),
     ),
   );
 }

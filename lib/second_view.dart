@@ -4,7 +4,7 @@ import 'todo_list_state.dart';
 class SecondView extends StatefulWidget {
   final ToDoItem task;
 
-  const SecondView(this.task);
+  SecondView(this.task);
 
   @override
   State<StatefulWidget> createState() {

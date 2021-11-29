@@ -1,55 +1,76 @@
 import 'package:flutter/material.dart';
+import './api.dart';
 
 class ToDoItem {
+  String? id;
   String? toDoText;
-  bool isDone = false;
+  bool isDone;
 
-  ToDoItem({this.toDoText});
+  ToDoItem({this.id, this.toDoText, this.isDone = false});
+
+  void toggleDone(ToDoItem task) {
+    isDone = !isDone;
+  }
+
+  static Map<String, dynamic> toJson(ToDoItem task) {
+    return {
+      'title': task.toDoText,
+      'id': task.id,
+      'done': task.isDone,
+    };
+  }
+
+  static ToDoItem fromJson(Map<String, dynamic> json) {
+    return ToDoItem(
+      toDoText: json['title'],
+      id: json['id'],
+      isDone: json['done'],
+    );
+  }
 }
 
 class MyState extends ChangeNotifier {
-  List<ToDoItem> _list = [];
+  late List<ToDoItem> _list = [];
   int _filterBy = 1;
-  int get filterBy => _filterBy;
-  List<ToDoItem> get list => _filterList(_list, _filterBy);
 
-  get value => null;
+  List<ToDoItem> get list => _list;
+  int get filterBy => _filterBy;
+
+  // get value => null;
+
+  Future getList() async {
+    List<ToDoItem> list = await Api.getTasks();
+    _list = list;
+    notifyListeners();
+  }
 
 //lägger till i listan
-  void addTask(task) {
-    _list.add(task);
+  void addTask(task) async {
+    _list = await Api.addTask(task);
     notifyListeners();
   }
 
 //tar bort från listan
-  void removeTask(task) {
-    _list.remove(task);
+  void removeTask(ToDoItem taskId) async {
+    _list = await Api.deleteTask(taskId);
     notifyListeners();
   }
 
-  void setTaskChecked(task) {
-    task.isDone(task);
+  void updateTask(ToDoItem task) async {
+    task.toggleDone(task);
+    _list = await Api.updateTask(task, task);
+    notifyListeners();
+  }
+
+//vid ändring av checkbox
+  void isDone(ToDoItem task) {
+    task.toggleDone(task);
     notifyListeners();
   }
 
 //sätter variabel och tar in ett argument i form av int
   void setFilterBy(int filterBy) {
     _filterBy = filterBy;
-    notifyListeners();
-  }
-
-//filtrerar efter value
-  List<ToDoItem> _filterList(list, filterBy) {
-    if (filterBy == 1) {
-      return list;
-    }
-    if (filterBy == 2) {
-      return list.where((item) => item.isDone == true).toList();
-    }
-    if (filterBy == 3) {
-      return list.where((item) => item.isDone == false).toList();
-    }
-    return [];
     notifyListeners();
   }
 }
