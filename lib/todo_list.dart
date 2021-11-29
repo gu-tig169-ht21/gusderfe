@@ -6,7 +6,7 @@ import 'todo_list_view.dart';
 class ToDoList extends StatelessWidget {
   List<ToDoItem> list;
 
-  ToDoList(this.list);
+  ToDoList(this.list, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,11 +15,12 @@ class ToDoList extends StatelessWidget {
   }
 
   Widget _listItem(context, task) {
+    var state = Provider.of<MyState>(context, listen: false);
     return ListTile(
         leading: Checkbox(
           value: task.isDone,
-          onChanged: (bool? value) {
-            task.isDone = value;
+          onChanged: (value) {
+            state.updatedTask(task);
           },
         ),
         title: Text(task.toDoText,

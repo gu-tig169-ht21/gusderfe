@@ -37,13 +37,13 @@ class SecondViewState extends State<SecondView> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(height: 20),
             //   TaskInputField(ToDoItem(toDoText: this.toDoText)),
             Container(height: 20),
             TextField(
               controller: textEditingController,
               decoration: const InputDecoration(
-                  border: OutlineInputBorder(), hintText: 'Skriv in här...'),
+                  border: OutlineInputBorder(),
+                  hintText: 'Skriv in vad du inte får glömma:'),
             ),
             addTask(),
           ],
@@ -58,7 +58,7 @@ class SecondViewState extends State<SecondView> {
       children: [
         IconButton(
           onPressed: () {
-            Navigator.pop(context, ToDoItem(toDoText: toDoText));
+            Navigator.pop(context, ToDoItem(id: '', toDoText: toDoText));
           },
           icon: const Icon(Icons.add_task),
         ),

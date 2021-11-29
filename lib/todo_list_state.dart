@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import './api.dart';
 
 class ToDoItem {
-  String? id;
+  String id;
   String? toDoText;
   bool isDone;
 
-  ToDoItem({this.id, this.toDoText, this.isDone = false});
+  ToDoItem({required this.id, required this.toDoText, this.isDone = false});
 
   void toggleDone(ToDoItem task) {
     isDone = !isDone;
@@ -31,7 +31,7 @@ class ToDoItem {
 
 class MyState extends ChangeNotifier {
   late List<ToDoItem> _list = [];
-  int _filterBy = 1;
+  int _filterBy = 3;
 
   List<ToDoItem> get list => _list;
   int get filterBy => _filterBy;
@@ -56,14 +56,14 @@ class MyState extends ChangeNotifier {
     notifyListeners();
   }
 
-  void updateTask(ToDoItem task) async {
+  void updatedTask(ToDoItem task) async {
     task.toggleDone(task);
-    _list = await Api.updateTask(task, task);
+    _list = await Api.updateTask(task.id, task);
     notifyListeners();
   }
 
 //vid ändring av checkbox
-  void isDone(ToDoItem task) {
+  void isDone(ToDoItem task) async {
     task.toggleDone(task);
     notifyListeners();
   }

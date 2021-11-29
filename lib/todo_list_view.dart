@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'todo_list_state.dart';
-import 'second_view.dart';
+import 'add_task_view.dart';
 import 'todo_list.dart';
 
 class TodolistView extends StatelessWidget {
@@ -47,8 +47,8 @@ class TodolistView extends StatelessWidget {
           var newToDo = await Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) =>
-                      SecondView(ToDoItem(toDoText: 'title'))));
+                  builder: (context) => SecondView(
+                      (ToDoItem(id: '', toDoText: 'Viktigt ärende')))));
           // Kommer till Andra vyn
 
           if (newToDo != null) {
