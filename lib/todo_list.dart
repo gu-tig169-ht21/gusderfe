@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'todo_list_state.dart';
-import 'todo_list_view.dart';
+import 'pages/home_view.dart';
 
 class ToDoList extends StatelessWidget {
   List<ToDoItem> list;
