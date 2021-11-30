@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'todo_list_state.dart';
+import '../todo_list_state.dart';
 import 'add_task_view.dart';
-import 'todo_list.dart';
+import '../todo_list.dart';
 
 class TodolistView extends StatelessWidget {
   const TodolistView({Key? key}) : super(key: key);
@@ -42,7 +42,7 @@ class TodolistView extends StatelessWidget {
             ToDoList(_filterList(state.list, state.filterBy)),
       ),
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add, size: 42),
+        child: const Icon(Icons.add, size: 42),
         onPressed: () async {
           var newToDo = await Navigator.push(
               context,

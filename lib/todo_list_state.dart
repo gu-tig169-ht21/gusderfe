@@ -62,13 +62,7 @@ class MyState extends ChangeNotifier {
     notifyListeners();
   }
 
-//vid ändring av checkbox
-  void isDone(ToDoItem task) async {
-    task.toggleDone(task);
-    notifyListeners();
-  }
-
-//sätter variabel och tar in ett argument i form av int
+//sätter variabeln för filtrering och tar in ett argument i form av int
   void setFilterBy(int filterBy) {
     _filterBy = filterBy;
     notifyListeners();
