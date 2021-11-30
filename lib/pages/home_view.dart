@@ -4,6 +4,8 @@ import '../todo_list_state.dart';
 import 'add_task_view.dart';
 import '../todo_list.dart';
 
+//---Detta är första sidan i appen
+
 class TodolistView extends StatelessWidget {
   const TodolistView({Key? key}) : super(key: key);
 

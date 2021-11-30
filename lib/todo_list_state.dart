@@ -31,7 +31,7 @@ class ToDoItem {
 
 class MyState extends ChangeNotifier {
   late List<ToDoItem> _list = [];
-  int _filterBy = 3;
+  int _filterBy = 1;
 
   List<ToDoItem> get list => _list;
   int get filterBy => _filterBy;
