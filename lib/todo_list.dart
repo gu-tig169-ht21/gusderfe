@@ -20,7 +20,7 @@ class ToDoList extends StatelessWidget {
         leading: Checkbox(
           value: task.isDone,
           onChanged: (value) {
-            state.updatedTask(task);
+            state.updateTask(task);
           },
         ),
         title: Text(task.toDoText,
@@ -29,7 +29,7 @@ class ToDoList extends StatelessWidget {
         trailing: IconButton(
             onPressed: () {
               var state = Provider.of<MyState>(context, listen: false);
-              state.removeTask(task);
+              state.deleteTask(task);
             },
             icon: Icon(Icons.highlight_remove)));
   }

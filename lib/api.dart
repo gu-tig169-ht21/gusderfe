@@ -26,7 +26,7 @@ class Api {
   }
 
 //tar bort en todo
-  static Future deleteTask(ToDoItem task) async {
+  static Future delete(ToDoItem task) async {
     var response =
         await http.delete(Uri.parse('$API_URL/todos/${task.id}?key=$API_KEY'));
     var bodyString = response.body;
@@ -37,7 +37,7 @@ class Api {
     }).toList();
   }
 
-  static Future updateTask(String taskId, ToDoItem task) async {
+  static Future update(String taskId, ToDoItem task) async {
     Map<String, dynamic> json = ToDoItem.toJson(task);
     var bodyString = jsonEncode(json);
     var response = await http.put(

@@ -51,14 +51,14 @@ class MyState extends ChangeNotifier {
   }
 
 //tar bort från listan
-  void removeTask(ToDoItem taskId) async {
-    _list = await Api.deleteTask(taskId);
+  void deleteTask(ToDoItem taskId) async {
+    _list = await Api.delete(taskId);
     notifyListeners();
   }
 
-  void updatedTask(ToDoItem task) async {
+  void updateTask(ToDoItem task) async {
     task.toggleDone(task);
-    _list = await Api.updateTask(task.id, task);
+    _list = await Api.update(task.id, task);
     notifyListeners();
   }
 
