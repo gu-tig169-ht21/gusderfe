@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'todo_list_state.dart';
-import 'todo_list_view.dart';
+import 'pages/home_view.dart';
 
 class ToDoList extends StatelessWidget {
   List<ToDoItem> list;
 
-  ToDoList(this.list);
+  ToDoList(this.list, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,11 +15,12 @@ class ToDoList extends StatelessWidget {
   }
 
   Widget _listItem(context, task) {
+    var state = Provider.of<MyState>(context, listen: false);
     return ListTile(
         leading: Checkbox(
           value: task.isDone,
-          onChanged: (bool? value) {
-            task.isDone = value;
+          onChanged: (value) {
+            state.updateTask(task);
           },
         ),
         title: Text(task.toDoText,
@@ -28,7 +29,7 @@ class ToDoList extends StatelessWidget {
         trailing: IconButton(
             onPressed: () {
               var state = Provider.of<MyState>(context, listen: false);
-              state.removeTask(task);
+              state.deleteTask(task);
             },
             icon: Icon(Icons.highlight_remove)));
   }

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'todo_list_state.dart';
+import '../todo_list_state.dart';
+
+//------Detta är andra sidan i appen------
 
 class SecondView extends StatefulWidget {
   final ToDoItem task;
-
   SecondView(this.task);
 
   @override
@@ -34,16 +35,14 @@ class SecondViewState extends State<SecondView> {
       appBar: AppBar(title: const Text('Lägg till påminnelser')),
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(height: 20),
             //   TaskInputField(ToDoItem(toDoText: this.toDoText)),
             Container(height: 20),
             TextField(
               controller: textEditingController,
               decoration: const InputDecoration(
-                  border: OutlineInputBorder(), hintText: 'Skriv in här...'),
+                  border: OutlineInputBorder(),
+                  hintText: 'Skriv in vad du inte får glömma:'),
             ),
             addTask(),
           ],
@@ -58,7 +57,7 @@ class SecondViewState extends State<SecondView> {
       children: [
         IconButton(
           onPressed: () {
-            Navigator.pop(context, ToDoItem(toDoText: toDoText));
+            Navigator.pop(context, ToDoItem(id: '', toDoText: toDoText));
           },
           icon: const Icon(Icons.add_task),
         ),

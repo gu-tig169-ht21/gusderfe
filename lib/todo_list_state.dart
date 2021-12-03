@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import './api.dart';
 
 class ToDoItem {
-  String? id;
+  String id;
   String? toDoText;
   bool isDone;
 
-  ToDoItem({this.id, this.toDoText, this.isDone = false});
+  ToDoItem({required this.id, required this.toDoText, this.isDone = false});
 
   void toggleDone(ToDoItem task) {
     isDone = !isDone;
@@ -51,24 +51,18 @@ class MyState extends ChangeNotifier {
   }
 
 //tar bort från listan
-  void removeTask(ToDoItem taskId) async {
-    _list = await Api.deleteTask(taskId);
+  void deleteTask(ToDoItem taskId) async {
+    _list = await Api.delete(taskId);
     notifyListeners();
   }
 
   void updateTask(ToDoItem task) async {
     task.toggleDone(task);
-    _list = await Api.updateTask(task, task);
+    _list = await Api.update(task.id, task);
     notifyListeners();
   }
 
-//vid ändring av checkbox
-  void isDone(ToDoItem task) {
-    task.toggleDone(task);
-    notifyListeners();
-  }
-
-//sätter variabel och tar in ett argument i form av int
+//sätter variabeln för filtrering och tar in ett argument i form av int
   void setFilterBy(int filterBy) {
     _filterBy = filterBy;
     notifyListeners();

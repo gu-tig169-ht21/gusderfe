@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'todo_list_state.dart';
 
-const API_KEY = 'f5ba4293-e01d-4e5b-a210-3e3c06e948cc';
+const API_KEY = 'a59be60b-0142-49de-9452-5babdb6e5fa7';
 //En variabel för hela API-key
 const API_URL = 'https://todoapp-api-pyq5q.ondigitalocean.app';
 //En variabel för hela URL:n
@@ -11,12 +11,9 @@ const API_URL = 'https://todoapp-api-pyq5q.ondigitalocean.app';
 class Api {
   static Future<List<ToDoItem>> addTask(ToDoItem task) async {
     Map<String, dynamic> json = ToDoItem.toJson(task);
-    var bodyString = jsonEncode({
-      'title': task.toDoText,
-      'done': task.isDone,
-    });
+    var bodyString = jsonEncode(json);
     var response = await http.post(
-      Uri.parse('$API_URL/todos/?key=$API_KEY'),
+      Uri.parse('$API_URL/todos?key=$API_KEY'),
       body: bodyString,
       headers: {'Content-Type': 'application/json'},
     );
@@ -29,9 +26,9 @@ class Api {
   }
 
 //tar bort en todo
-  static Future deleteTask(ToDoItem task) async {
-    var response = await http.delete(
-        Uri.parse('$API_URL/todos/${task.id}?key=$API_KEY&_confirm=true'));
+  static Future delete(ToDoItem task) async {
+    var response =
+        await http.delete(Uri.parse('$API_URL/todos/${task.id}?key=$API_KEY'));
     var bodyString = response.body;
     var list = jsonDecode(bodyString);
 
@@ -40,10 +37,15 @@ class Api {
     }).toList();
   }
 
-  static Future updateTask(ToDoItem task, ToDoItem taskId) async {
-    var response =
-        await http.put(Uri.parse('$API_URL/todos/${task.id}?key=$API_KEY'));
-    var bodyString = response.body;
+  static Future update(String taskId, ToDoItem task) async {
+    Map<String, dynamic> json = ToDoItem.toJson(task);
+    var bodyString = jsonEncode(json);
+    var response = await http.put(
+      Uri.parse('$API_URL/todos/$taskId?key=$API_KEY'),
+      body: bodyString,
+      headers: {'Content-Type': 'application/json'},
+    );
+    bodyString = response.body;
     var list = jsonDecode(bodyString);
 
     return list.map<ToDoItem>((data) {
@@ -52,8 +54,9 @@ class Api {
   }
 
   static Future<List<ToDoItem>> getTasks() async {
-    var response = await http.get(Uri.parse('$API_URL/todos?key=$API_KEY'));
-    String bodyString = response.body;
+    http.Response response =
+        await http.get(Uri.parse('$API_URL/todos?key=$API_KEY'));
+    var bodyString = response.body;
     var json = jsonDecode(bodyString);
 
     return json.map<ToDoItem>((data) {
