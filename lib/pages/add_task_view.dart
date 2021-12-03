@@ -5,7 +5,6 @@ import '../todo_list_state.dart';
 
 class SecondView extends StatefulWidget {
   final ToDoItem task;
-
   SecondView(this.task);
 
   @override
@@ -36,8 +35,6 @@ class SecondViewState extends State<SecondView> {
       appBar: AppBar(title: const Text('Lägg till påminnelser')),
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             //   TaskInputField(ToDoItem(toDoText: this.toDoText)),
             Container(height: 20),
