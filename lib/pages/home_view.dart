@@ -4,7 +4,7 @@ import '../todo_list_state.dart';
 import 'add_task_view.dart';
 import '../todo_list.dart';
 
-//---Detta är första sidan i appen
+//------Detta är första sidan i appen------
 
 class TodolistView extends StatelessWidget {
   const TodolistView({Key? key}) : super(key: key);
@@ -35,13 +35,13 @@ class TodolistView extends StatelessWidget {
                       child: Text("Ogjorda"),
                       value: 3,
                     )
-                    //detta är för filtrering
                   ])
         ],
       ),
       body: Consumer<MyState>(
         builder: (context, state, child) =>
             ToDoList(_filterList(state.list, state.filterBy)),
+        //---------detta ovan är för filtrering
       ),
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add, size: 42),
@@ -51,10 +51,10 @@ class TodolistView extends StatelessWidget {
               MaterialPageRoute(
                   builder: (context) => SecondView(
                       (ToDoItem(id: '', toDoText: 'Viktigt ärende')))));
-          // Kommer till Andra vyn
+          //---Kommer till Andra vyn
 
           if (newToDo != null) {
-            // Lägg till ny Task i ToDolistan
+            //-----Lägg till ny Task i ToDolistan
             Provider.of<MyState>(context, listen: false).addTask(newToDo);
           }
         },
@@ -63,7 +63,7 @@ class TodolistView extends StatelessWidget {
   }
 
   //filtrerar efter value
-  List<ToDoItem> _filterList(list, filterBy) {
+  List<ToDoItem> _filterList(List<ToDoItem> list, int filterBy) {
     if (filterBy == 1) {
       return list;
     }
