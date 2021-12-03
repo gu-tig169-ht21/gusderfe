@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../todo_list_state.dart';
 
-//---Detta är andra sidan i appen
+//------Detta är andra sidan i appen------
 
 class SecondView extends StatefulWidget {
   final ToDoItem task;
